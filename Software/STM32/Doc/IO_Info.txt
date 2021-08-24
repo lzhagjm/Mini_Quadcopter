@@ -1,0 +1,100 @@
+
+ 外设                功能            引脚
+usart1               Tx              PA9      蓝牙  波特率 9600  （配置参数显示状态）
+					 Rx              PA10
+					 
+usart6               Tx              PC6      K210通讯  
+					 Rx              PC7
+
+usart3               Tx              PB10    上位机 波特率500000     （上报波形）                               
+					 Rx              PB11
+					 
+
+
+液晶屏               FSMC D15        PD10
+					 FSMC D13        PD8
+					 FSMC D11        PE14
+					 FSMC D9         PE12
+					 FSMC D7         PE10
+					 FSMC D5         PE8
+					 FSMC D3         PD3
+					 FSMC D1         PD15
+					 FSMC D14         PD9
+					 FSMC D12         PE15
+					 FSMC D10         PE13
+					 FSMC D8         PE11
+					 FSMC D6         PE9
+					 FSMC D4         PE7
+					 FSMC D2         PD0
+					 FSMC D0         PD14
+					 FSMC NOE         PD4
+					 FSMC A6         PF12
+					 FSMC NWE         PD5
+					 FSMC NE4         PG12
+					 T_SCK            PB0
+					 T_MOSI           PF11
+					 T_PEN            PB1
+					 T_CS             PC13
+					 T_MISO           PB2
+					 LCD_BL           PB15
+
+spi(flash)           SCK              PB3
+				     MISO             PB4
+				     MOSI     		  PB5
+
+s_i2c                SCL             PB6    
+                     SDA             PB7
+
+h_i2c				 SCL		    PB8
+				     SDA			PB9
+
+led              	    D1              PF9
+                     D2              PF10
+		
+key                  K0              PE4
+                     K1              PE3
+					 WK_UP           PA0
+
+CH_SR04              TRIG            PC10   
+                     ECHO            PC2      TIM6
+					 
+角度编码器           out             PC0     ADC123_IN10  /ADC1_IN16(内核温度)   改
+
+矩阵键盘            IN1                 PG2
+					IN2					PG3
+					IN3					PG4
+					IN4					PG5
+					IN5					PG6
+					IN6					PG7
+					IN7					PG8
+					IN8					PG9
+					
+tb6612\l298n        PWMA                PC8    TIM3 CH3    舵机1
+					PWMB        		PC9    TIM3 CH4    舵机2
+					INA2                PB12
+					INA1                PB13
+					INB1                PB14
+					INB2                PA8    
+					
+GB37520       		1A					PA5    TIM2 CH1
+					1B    				PA1    TIM2 CH2
+					2A					PD12   TIM4 CH1
+					2B    				PD13   TIM4 CH2
+					
+MX1508_1		    IN1					PA5    TIM2 CH1
+				    IN2               	PA1    TIM2 CH2 
+					IN3					PA2    TIM2 CH3
+				    IN4                 PA3    TIM2 CH4 
+						
+MX1508_2		    IN1					PA6    TIM3 CH1
+				    IN2                	PA7    TIM3 CH2 
+					IN3					PC8    TIM3 CH3
+				    IN4                 PC9    TIM3 CH4
+	 				
+步进电机           pulse  		        PC5	    TIM5
+				   dir                  PA4
+				   enable               PC4
+				   
+				   
+
+

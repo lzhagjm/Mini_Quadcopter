@@ -1,0 +1,363 @@
+<html>
+<body>
+<pre>
+<h1>礦ision Build Log</h1>
+<h2>Tool Versions:</h2>
+IDE-Version: μVision V5.29.0.0
+Copyright (C) 2019 ARM Ltd and ARM Germany GmbH. All rights reserved.
+License Information:  ,  , LIC=ZB4EI-T0W1Z-JJL6S-L7LB5-7YGSK-YHVBY
+ 
+Tool Versions:
+Toolchain:       MDK-ARM Plus  Version: 5.29.0.0
+Toolchain Path:  C:\Program Files (x86)\keil_5\ARM\ARMCC\Bin
+C Compiler:      Armcc.exe V5.06 update 6 (build 750)
+Assembler:       Armasm.exe V5.06 update 6 (build 750)
+Linker/Locator:  ArmLink.exe V5.06 update 6 (build 750)
+Library Manager: ArmAr.exe V5.06 update 6 (build 750)
+Hex Converter:   FromElf.exe V5.06 update 6 (build 750)
+CPU DLL:         SARMCM3.DLL V5.29.0.0
+Dialog DLL:      DARMSTM.DLL V1.68.0.0
+Target DLL:      STLink\ST-LINKIII-KEIL_SWO.dll V3.0.7.0
+Dialog DLL:      TARMSTM.DLL V1.66.0.0
+ 
+<h2>Project:</h2>
+E:\Project\WholePrj_Doing\2021-8-8-MIni_Quadcopter\Software\STM32\Project\MIni_Quadcopter.uvprojx
+Project File Date:  08/23/2021
+
+<h2>Output:</h2>
+*** Using Compiler 'V5.06 update 6 (build 750)', folder: 'C:\Program Files (x86)\keil_5\ARM\ARMCC\Bin'
+Build target 'Target 1'
+compiling bsp_bluetooth.c...
+..\BSP\bsp_bluetooth.c(11): warning:  #223-D: function "RCC_AHB1PeriphClockCmd" declared implicitly
+  	RCC_AHB1PeriphClockCmd(USARTx_TX_CLK|USARTx_RX_CLK,ENABLE);
+..\BSP\bsp_bluetooth.c(11): error:  #20: identifier "RCC_AHB1Periph_GPIOA" is undefined
+  	RCC_AHB1PeriphClockCmd(USARTx_TX_CLK|USARTx_RX_CLK,ENABLE);
+..\BSP\bsp_bluetooth.c(12): error:  #20: identifier "GPIO_Mode_AF" is undefined
+  	GPIO_InitStruct.GPIO_Mode = GPIO_Mode_AF;
+..\BSP\bsp_bluetooth.c(13): error:  #136: struct "<unnamed>"  has no field "GPIO_OType"
+  	GPIO_InitStruct.GPIO_OType = GPIO_OType_OD;
+..\BSP\bsp_bluetooth.c(13): error:  #20: identifier "GPIO_OType_OD" is undefined
+  	GPIO_InitStruct.GPIO_OType = GPIO_OType_OD;
+..\BSP\bsp_bluetooth.c(15): error:  #136: struct "<unnamed>"  has no field "GPIO_PuPd"
+  	GPIO_InitStruct.GPIO_PuPd = GPIO_PuPd_NOPULL;
+..\BSP\bsp_bluetooth.c(15): error:  #20: identifier "GPIO_PuPd_NOPULL" is undefined
+  	GPIO_InitStruct.GPIO_PuPd = GPIO_PuPd_NOPULL;
+..\BSP\bsp_bluetooth.c(20): error:  #136: struct "<unnamed>"  has no field "GPIO_OType"
+  	GPIO_InitStruct.GPIO_OType = GPIO_OType_PP;
+..\BSP\bsp_bluetooth.c(20): error:  #20: identifier "GPIO_OType_PP" is undefined
+  	GPIO_InitStruct.GPIO_OType = GPIO_OType_PP;
+..\BSP\bsp_bluetooth.c(21): error:  #136: struct "<unnamed>"  has no field "GPIO_PuPd"
+  	GPIO_InitStruct.GPIO_PuPd = GPIO_PuPd_UP;
+..\BSP\bsp_bluetooth.c(21): error:  #20: identifier "GPIO_PuPd_UP" is undefined
+  	GPIO_InitStruct.GPIO_PuPd = GPIO_PuPd_UP;
+..\BSP\bsp_bluetooth.c(24): warning:  #223-D: function "GPIO_PinAFConfig" declared implicitly
+  	GPIO_PinAFConfig(GPIOA, GPIO_PinSource9, GPIO_AF_USART1);
+..\BSP\bsp_bluetooth.c(24): error:  #20: identifier "GPIO_AF_USART1" is undefined
+  	GPIO_PinAFConfig(GPIOA, GPIO_PinSource9, GPIO_AF_USART1);
+..\BSP\bsp_bluetooth.c(51): warning:  #223-D: function "RCC_AHB1PeriphClockCmd" declared implicitly
+  	RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_DMA2,ENABLE);
+..\BSP\bsp_bluetooth.c(51): error:  #20: identifier "RCC_AHB1Periph_DMA2" is undefined
+  	RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_DMA2,ENABLE);
+..\BSP\bsp_bluetooth.c(53): error:  #20: identifier "DMA_DIR_PeripheralToMemory" is undefined
+  	DMA_InitStruct.DMA_DIR = DMA_DIR_PeripheralToMemory;
+..\BSP\bsp_bluetooth.c(55): error:  #136: struct "<unnamed>"  has no field "DMA_Channel"
+  	DMA_InitStruct.DMA_Channel = DMA_Channel_4;
+..\BSP\bsp_bluetooth.c(55): error:  #20: identifier "DMA_Channel_4" is undefined
+  	DMA_InitStruct.DMA_Channel = DMA_Channel_4;
+..\BSP\bsp_bluetooth.c(56): error:  #136: struct "<unnamed>"  has no field "DMA_FIFOMode"
+  	DMA_InitStruct.DMA_FIFOMode = DMA_FIFOMode_Disable;
+..\BSP\bsp_bluetooth.c(56): error:  #20: identifier "DMA_FIFOMode_Disable" is undefined
+  	DMA_InitStruct.DMA_FIFOMode = DMA_FIFOMode_Disable;
+..\BSP\bsp_bluetooth.c(57): error:  #136: struct "<unnamed>"  has no field "DMA_FIFOThreshold"
+  	DMA_InitStruct.DMA_FIFOThreshold = DMA_FIFOThreshold_Full;
+..\BSP\bsp_bluetooth.c(57): error:  #20: identifier "DMA_FIFOThreshold_Full" is undefined
+  	DMA_InitStruct.DMA_FIFOThreshold = DMA_FIFOThreshold_Full;
+..\BSP\bsp_bluetooth.c(58): error:  #136: struct "<unnamed>"  has no field "DMA_Memory0BaseAddr"
+  	DMA_InitStruct.DMA_Memory0BaseAddr = (uint32_t)(Debug.rx_buffer);
+..\BSP\bsp_bluetooth.c(59): error:  #136: struct "<unnamed>"  has no field "DMA_MemoryBurst"
+  	DMA_InitStruct.DMA_MemoryBurst = DMA_MemoryBurst_Single;
+..\BSP\bsp_bluetooth.c(59): error:  #20: identifier "DMA_MemoryBurst_Single" is undefined
+  	DMA_InitStruct.DMA_MemoryBurst = DMA_MemoryBurst_Single;
+..\BSP\bsp_bluetooth.c(60): error:  #136: struct "<unnamed>"  has no field "DMA_PeripheralBurst"
+  	DMA_InitStruct.DMA_PeripheralBurst = DMA_PeripheralBurst_Single;
+..\BSP\bsp_bluetooth.c(60): error:  #20: identifier "DMA_PeripheralBurst_Single" is undefined
+  	DMA_InitStruct.DMA_PeripheralBurst = DMA_PeripheralBurst_Single;
+..\BSP\bsp_bluetooth.c(69): error:  #20: identifier "DMA2_Stream5" is undefined
+  	DMA_Init(DMA2_Stream5,&DMA_InitStruct);
+..\BSP\bsp_bluetooth.c(71): error:  #20: identifier "DMA_DIR_MemoryToPeripheral" is undefined
+  	DMA_InitStruct.DMA_DIR = DMA_DIR_MemoryToPeripheral;
+..\BSP\bsp_bluetooth.c(72): error:  #136: struct "<unnamed>"  has no field "DMA_Memory0BaseAddr"
+  	DMA_InitStruct.DMA_Memory0BaseAddr = (uint32_t)&(Debug.head);
+..\BSP\bsp_bluetooth.c(73): error:  #20: identifier "DMA2_Stream7" is undefined
+  	DMA_Init(DMA2_Stream7,&DMA_InitStruct);
+..\BSP\bsp_bluetooth.c: 3 warnings, 28 errors
+compiling bsp_adc.c...
+..\BSP\bsp_adc.c(10): error:  #20: identifier "ADC_CommonInitTypeDef" is undefined
+  	ADC_CommonInitTypeDef ADC_CommonInitStructure;
+..\BSP\bsp_adc.c(15): warning:  #223-D: function "RCC_AHB1PeriphClockCmd" declared implicitly
+    RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOC, ENABLE);//使能GPIOA时钟
+..\BSP\bsp_adc.c(15): error:  #20: identifier "RCC_AHB1Periph_GPIOC" is undefined
+    RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOC, ENABLE);//使能GPIOA时钟
+..\BSP\bsp_adc.c(17): error:  #20: identifier "RCC_AHB1Periph_DMA2" is undefined
+  	RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_DMA2, ENABLE); 
+..\BSP\bsp_adc.c(22): error:  #20: identifier "GPIO_Mode_AN" is undefined
+    GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AN;//模拟输入
+..\BSP\bsp_adc.c(23): error:  #136: struct "<unnamed>"  has no field "GPIO_PuPd"
+    GPIO_InitStructure.GPIO_PuPd = GPIO_PuPd_NOPULL ;//不带上下拉
+..\BSP\bsp_adc.c(23): error:  #20: identifier "GPIO_PuPd_NOPULL" is undefined
+    GPIO_InitStructure.GPIO_PuPd = GPIO_PuPd_NOPULL ;//不带上下拉
+..\BSP\bsp_adc.c(33): error:  #136: struct "<unnamed>"  has no field "DMA_Memory0BaseAddr"
+  	DMA_InitStructure.DMA_Memory0BaseAddr = (u32)ADC_ConvertedValue;  
+..\BSP\bsp_adc.c(35): error:  #20: identifier "DMA_DIR_PeripheralToMemory" is undefined
+  	DMA_InitStructure.DMA_DIR = DMA_DIR_PeripheralToMemory;	
+..\BSP\bsp_adc.c(51): error:  #136: struct "<unnamed>"  has no field "DMA_FIFOMode"
+    DMA_InitStructure.DMA_FIFOMode = DMA_FIFOMode_Disable;  
+..\BSP\bsp_adc.c(51): error:  #20: identifier "DMA_FIFOMode_Disable" is undefined
+    DMA_InitStructure.DMA_FIFOMode = DMA_FIFOMode_Disable;  
+..\BSP\bsp_adc.c(53): error:  #136: struct "<unnamed>"  has no field "DMA_FIFOThreshold"
+    DMA_InitStructure.DMA_FIFOThreshold = DMA_FIFOThreshold_HalfFull;
+..\BSP\bsp_adc.c(53): error:  #20: identifier "DMA_FIFOThreshold_HalfFull" is undefined
+    DMA_InitStructure.DMA_FIFOThreshold = DMA_FIFOThreshold_HalfFull;
+..\BSP\bsp_adc.c(54): error:  #136: struct "<unnamed>"  has no field "DMA_MemoryBurst"
+    DMA_InitStructure.DMA_MemoryBurst = DMA_MemoryBurst_Single;
+..\BSP\bsp_adc.c(54): error:  #20: identifier "DMA_MemoryBurst_Single" is undefined
+    DMA_InitStructure.DMA_MemoryBurst = DMA_MemoryBurst_Single;
+..\BSP\bsp_adc.c(55): error:  #136: struct "<unnamed>"  has no field "DMA_PeripheralBurst"
+    DMA_InitStructure.DMA_PeripheralBurst = DMA_PeripheralBurst_Single;  
+..\BSP\bsp_adc.c(55): error:  #20: identifier "DMA_PeripheralBurst_Single" is undefined
+    DMA_InitStructure.DMA_PeripheralBurst = DMA_PeripheralBurst_Single;  
+..\BSP\bsp_adc.c(57): error:  #136: struct "<unnamed>"  has no field "DMA_Channel"
+    DMA_InitStructure.DMA_Channel = DMA_Channel_0; 
+..\BSP\bsp_adc.c(57): error:  #20: identifier "DMA_Channel_0" is undefined
+    DMA_InitStructure.DMA_Channel = DMA_Channel_0; 
+..\BSP\bsp_adc.c(59): error:  #20: identifier "DMA2_Stream0" is undefined
+  	DMA_Init(DMA2_Stream0, &DMA_InitStructure);
+..\BSP\bsp_adc.c(67): error:  #20: identifier "ADC_Prescaler_Div4" is undefined
+    ADC_CommonInitStructure.ADC_Prescaler = ADC_Prescaler_Div4;
+..\BSP\bsp_adc.c(69): error:  #20: identifier "ADC_DMAAccessMode_Disabled" is undefined
+    ADC_CommonInitStructure.ADC_DMAAccessMode = ADC_DMAAccessMode_Disabled;
+..\BSP\bsp_adc.c(71): error:  #20: identifier "ADC_TwoSamplingDelay_20Cycles" is undefined
+    ADC_CommonInitStructure.ADC_TwoSamplingDelay = ADC_TwoSamplingDelay_20Cycles;  
+..\BSP\bsp_adc.c(72): warning:  #223-D: function "ADC_CommonInit" declared implicitly
+    ADC_CommonInit(&ADC_CommonInitStructure);
+..\BSP\bsp_adc.c(77): error:  #136: struct "<unnamed>"  has no field "ADC_Resolution"
+    ADC_InitStructure.ADC_Resolution = ADC_Resolution_12b;
+..\BSP\bsp_adc.c(77): error:  #20: identifier "ADC_Resolution_12b" is undefined
+    ADC_InitStructure.ADC_Resolution = ADC_Resolution_12b;
+..\BSP\bsp_adc.c(83): error:  #136: struct "<unnamed>"  has no field "ADC_ExternalTrigConvEdge"
+    ADC_InitStructure.ADC_ExternalTrigConvEdge = ADC_ExternalTrigConvEdge_None;
+..\BSP\bsp_adc.c(83): error:  #20: identifier "ADC_ExternalTrigConvEdge_None" is undefined
+    ADC_InitStructure.ADC_ExternalTrigConvEdge = ADC_ExternalTrigConvEdge_None;
+..\BSP\bsp_adc.c(89): error:  #136: struct "<unnamed>"  has no field "ADC_NbrOfConversion"
+    ADC_InitStructure.ADC_NbrOfConversion = RHEOSTAT_NOFCHANEL;                                    
+..\BSP\bsp_adc.c(95): error:  #20: identifier "ADC_SampleTime_480Cycles" is undefined
+  	                         ADC_SampleTime_480Cycles);
+..\BSP\bsp_adc.c(101): warning:  #223-D: function "ADC_DMARequestAfterLastTransferCmd" declared implicitly
+    ADC_DMARequestAfterLastTransferCmd(ADC1, ENABLE);
+..\BSP\bsp_adc.c(108): warning:  #223-D: function "ADC_SoftwareStartConv" declared implicitly
+    ADC_SoftwareStartConv(ADC1);
+..\BSP\bsp_adc.c: 4 warnings, 28 errors
+compiling system_stm32f10x.c...
+compiling misc.c...
+compiling stm32f10x_dma.c...
+compiling stm32f10x_gpio.c...
+compiling stm32f10x_i2c.c...
+compiling stm32f10x_usart.c...
+compiling stm32f10x_adc.c...
+compiling stm32f10x_rcc.c...
+compiling stm32f10x_tim.c...
+compiling bsp_led.c...
+..\BSP\bsp_led.c(7): warning:  #223-D: function "RCC_AHB1PeriphClockCmd" declared implicitly
+    RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOF, ENABLE);//使能GPIOF时钟
+..\BSP\bsp_led.c(7): error:  #20: identifier "RCC_AHB1Periph_GPIOF" is undefined
+    RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOF, ENABLE);//使能GPIOF时钟
+..\BSP\bsp_led.c(11): error:  #20: identifier "GPIO_Mode_OUT" is undefined
+    GPIO_InitStructure.GPIO_Mode = GPIO_Mode_OUT;//普通输出模式
+..\BSP\bsp_led.c(12): error:  #136: struct "<unnamed>"  has no field "GPIO_OType"
+    GPIO_InitStructure.GPIO_OType = GPIO_OType_PP;//推挽输出
+..\BSP\bsp_led.c(12): error:  #20: identifier "GPIO_OType_PP" is undefined
+    GPIO_InitStructure.GPIO_OType = GPIO_OType_PP;//推挽输出
+..\BSP\bsp_led.c(13): error:  #20: identifier "GPIO_Speed_100MHz" is undefined
+    GPIO_InitStructure.GPIO_Speed = GPIO_Speed_100MHz;//100MHz
+..\BSP\bsp_led.c(14): error:  #136: struct "<unnamed>"  has no field "GPIO_PuPd"
+    GPIO_InitStructure.GPIO_PuPd = GPIO_PuPd_UP;//上拉
+..\BSP\bsp_led.c(14): error:  #20: identifier "GPIO_PuPd_UP" is undefined
+    GPIO_InitStructure.GPIO_PuPd = GPIO_PuPd_UP;//上拉
+..\BSP\bsp_led.c: 1 warning, 7 errors
+compiling bsp_h_i2c.c...
+..\BSP\bsp_h_i2c.c(41): warning:  #223-D: function "RCC_AHB1PeriphClockCmd" declared implicitly
+    RCC_AHB1PeriphClockCmd(SENSORS_I2C_SCL_GPIO_CLK | SENSORS_I2C_SDA_GPIO_CLK, ENABLE);
+..\BSP\bsp_h_i2c.c(41): error:  #20: identifier "RCC_AHB1Periph_GPIOB" is undefined
+    RCC_AHB1PeriphClockCmd(SENSORS_I2C_SCL_GPIO_CLK | SENSORS_I2C_SDA_GPIO_CLK, ENABLE);
+..\BSP\bsp_h_i2c.c(45): error:  #20: identifier "GPIO_Mode_AF" is undefined
+    GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AF;
+..\BSP\bsp_h_i2c.c(46): error:  #20: identifier "GPIO_Speed_100MHz" is undefined
+    GPIO_InitStructure.GPIO_Speed = GPIO_Speed_100MHz;
+..\BSP\bsp_h_i2c.c(47): error:  #136: struct "<unnamed>"  has no field "GPIO_OType"
+    GPIO_InitStructure.GPIO_OType = GPIO_OType_OD;
+..\BSP\bsp_h_i2c.c(47): error:  #20: identifier "GPIO_OType_OD" is undefined
+    GPIO_InitStructure.GPIO_OType = GPIO_OType_OD;
+..\BSP\bsp_h_i2c.c(48): error:  #136: struct "<unnamed>"  has no field "GPIO_PuPd"
+    GPIO_InitStructure.GPIO_PuPd  = GPIO_PuPd_NOPULL;
+..\BSP\bsp_h_i2c.c(48): error:  #20: identifier "GPIO_PuPd_NOPULL" is undefined
+    GPIO_InitStructure.GPIO_PuPd  = GPIO_PuPd_NOPULL;
+..\BSP\bsp_h_i2c.c(51): warning:  #223-D: function "GPIO_PinAFConfig" declared implicitly
+    GPIO_PinAFConfig(SENSORS_I2C_SCL_GPIO_PORT, SENSORS_I2C_SCL_GPIO_PINSOURCE, SENSORS_I2C_AF);  
+..\BSP\bsp_h_i2c.c(51): error:  #20: identifier "GPIO_AF_I2C1" is undefined
+    GPIO_PinAFConfig(SENSORS_I2C_SCL_GPIO_PORT, SENSORS_I2C_SCL_GPIO_PINSOURCE, SENSORS_I2C_AF);  
+..\BSP\bsp_h_i2c.c: 2 warnings, 8 errors
+compiling bsp_hollow_cup.c...
+..\BSP\bsp_hollow_cup.c(8): warning:  #223-D: function "RCC_AHB1PeriphClockCmd" declared implicitly
+  	RCC_AHB1PeriphClockCmd (CupGroup1_TIM_CH1_CLK, ENABLE);
+..\BSP\bsp_hollow_cup.c(8): error:  #20: identifier "RCC_AHB1Periph_GPIOA" is undefined
+  	RCC_AHB1PeriphClockCmd (CupGroup1_TIM_CH1_CLK, ENABLE);
+..\BSP\bsp_hollow_cup.c(14): error:  #20: identifier "RCC_AHB1Periph_GPIOC" is undefined
+  	RCC_AHB1PeriphClockCmd (CupGroup2_TIM_CH3_CLK, ENABLE);
+..\BSP\bsp_hollow_cup.c(17): warning:  #223-D: function "GPIO_PinAFConfig" declared implicitly
+  	GPIO_PinAFConfig(CupGroup1_TIM_CH1_PORT,CupGroup1_TIM_CH1_PINSOURCE,CupGroup1_TIM_AF); 
+..\BSP\bsp_hollow_cup.c(17): error:  #20: identifier "GPIO_AF_TIM2" is undefined
+  	GPIO_PinAFConfig(CupGroup1_TIM_CH1_PORT,CupGroup1_TIM_CH1_PINSOURCE,CupGroup1_TIM_AF); 
+..\BSP\bsp_hollow_cup.c(21): error:  #20: identifier "GPIO_AF_TIM3" is undefined
+  	GPIO_PinAFConfig(CupGroup2_TIM_CH1_PORT,CupGroup2_TIM_CH1_PINSOURCE,CupGroup2_TIM_AF);
+..\BSP\bsp_hollow_cup.c(26): error:  #20: identifier "GPIO_Mode_AF" is undefined
+  	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AF;    
+..\BSP\bsp_hollow_cup.c(27): error:  #136: struct "<unnamed>"  has no field "GPIO_OType"
+  	GPIO_InitStructure.GPIO_OType = GPIO_OType_PP;
+..\BSP\bsp_hollow_cup.c(27): error:  #20: identifier "GPIO_OType_PP" is undefined
+  	GPIO_InitStructure.GPIO_OType = GPIO_OType_PP;
+..\BSP\bsp_hollow_cup.c(28): error:  #136: struct "<unnamed>"  has no field "GPIO_PuPd"
+  	GPIO_InitStructure.GPIO_PuPd = GPIO_PuPd_NOPULL;
+..\BSP\bsp_hollow_cup.c(28): error:  #20: identifier "GPIO_PuPd_NOPULL" is undefined
+  	GPIO_InitStructure.GPIO_PuPd = GPIO_PuPd_NOPULL;
+..\BSP\bsp_hollow_cup.c(29): error:  #20: identifier "GPIO_Speed_100MHz" is undefined
+  	GPIO_InitStructure.GPIO_Speed = GPIO_Speed_100MHz; 
+..\BSP\bsp_hollow_cup.c: 2 warnings, 10 errors
+compiling pid_lib.c...
+compiling bsp_s_i2c.c...
+..\BSP\bsp_s_i2c.c(132): warning:  #223-D: function "RCC_AHB1PeriphClockCmd" declared implicitly
+  	RCC_AHB1PeriphClockCmd(S_I2C_SCL_RCC_PORT|S_I2C_SDA_RCC_PORT,ENABLE);
+..\BSP\bsp_s_i2c.c(132): error:  #20: identifier "RCC_AHB1Periph_GPIOB" is undefined
+  	RCC_AHB1PeriphClockCmd(S_I2C_SCL_RCC_PORT|S_I2C_SDA_RCC_PORT,ENABLE);
+..\BSP\bsp_s_i2c.c(134): error:  #20: identifier "GPIO_Mode_OUT" is undefined
+  	GPIO_InitSteruct.GPIO_Mode = GPIO_Mode_OUT;  //开漏输出
+..\BSP\bsp_s_i2c.c(136): error:  #20: identifier "GPIO_Fast_Speed" is undefined
+  	GPIO_InitSteruct.GPIO_Speed = GPIO_Fast_Speed;
+..\BSP\bsp_s_i2c.c(137): error:  #136: struct "<unnamed>"  has no field "GPIO_OType"
+  	GPIO_InitSteruct.GPIO_OType = GPIO_OType_OD;
+..\BSP\bsp_s_i2c.c(137): error:  #20: identifier "GPIO_OType_OD" is undefined
+  	GPIO_InitSteruct.GPIO_OType = GPIO_OType_OD;
+..\BSP\bsp_s_i2c.c(138): error:  #136: struct "<unnamed>"  has no field "GPIO_PuPd"
+  	GPIO_InitSteruct.GPIO_PuPd = GPIO_PuPd_NOPULL;
+..\BSP\bsp_s_i2c.c(138): error:  #20: identifier "GPIO_PuPd_NOPULL" is undefined
+  	GPIO_InitSteruct.GPIO_PuPd = GPIO_PuPd_NOPULL;
+..\BSP\bsp_s_i2c.c: 1 warning, 7 errors
+compiling bsp_usart.c...
+..\BSP\bsp_usart.c(153): error:  #20: identifier "RCC_APB2Periph_USART6" is undefined
+      RCC_APB2PeriphClockCmd(RCC_APB2Periph_USART6, ENABLE); //开启USART1时钟
+..\BSP\bsp_usart.c(154): warning:  #223-D: function "RCC_AHB1PeriphClockCmd" declared implicitly
+      RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOC, ENABLE);
+..\BSP\bsp_usart.c(154): error:  #20: identifier "RCC_AHB1Periph_GPIOC" is undefined
+      RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOC, ENABLE);
+..\BSP\bsp_usart.c(157): error:  #20: identifier "USART6_IRQn" is undefined
+      NVIC_InitStructure.NVIC_IRQChannel = USART6_IRQn;
+..\BSP\bsp_usart.c(163): warning:  #223-D: function "GPIO_PinAFConfig" declared implicitly
+      GPIO_PinAFConfig(GPIOC, GPIO_PinSource6, GPIO_AF_USART6);
+..\BSP\bsp_usart.c(163): error:  #20: identifier "GPIO_AF_USART6" is undefined
+      GPIO_PinAFConfig(GPIOC, GPIO_PinSource6, GPIO_AF_USART6);
+..\BSP\bsp_usart.c(168): error:  #20: identifier "GPIO_Mode_AF" is undefined
+      GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AF;
+..\BSP\bsp_usart.c(170): error:  #136: struct "<unnamed>"  has no field "GPIO_OType"
+      GPIO_InitStructure.GPIO_OType = GPIO_OType_PP;
+..\BSP\bsp_usart.c(170): error:  #20: identifier "GPIO_OType_PP" is undefined
+      GPIO_InitStructure.GPIO_OType = GPIO_OType_PP;
+..\BSP\bsp_usart.c(171): error:  #136: struct "<unnamed>"  has no field "GPIO_PuPd"
+      GPIO_InitStructure.GPIO_PuPd = GPIO_PuPd_UP;
+..\BSP\bsp_usart.c(171): error:  #20: identifier "GPIO_PuPd_UP" is undefined
+      GPIO_InitStructure.GPIO_PuPd = GPIO_PuPd_UP;
+..\BSP\bsp_usart.c(177): error:  #136: struct "<unnamed>"  has no field "GPIO_OType"
+      GPIO_InitStructure.GPIO_OType = GPIO_OType_OD;
+..\BSP\bsp_usart.c(177): error:  #20: identifier "GPIO_OType_OD" is undefined
+      GPIO_InitStructure.GPIO_OType = GPIO_OType_OD;
+..\BSP\bsp_usart.c(178): error:  #136: struct "<unnamed>"  has no field "GPIO_PuPd"
+      GPIO_InitStructure.GPIO_PuPd = GPIO_PuPd_NOPULL;
+..\BSP\bsp_usart.c(178): error:  #20: identifier "GPIO_PuPd_NOPULL" is undefined
+      GPIO_InitStructure.GPIO_PuPd = GPIO_PuPd_NOPULL;
+..\BSP\bsp_usart.c(181): error:  #20: identifier "USART6" is undefined
+      USART_DeInit(USART6);
+..\BSP\bsp_usart.c(218): error:  #20: identifier "USART6" is undefined
+      if (!(USART6->CR1 & USART_CR1_TXEIE))
+..\BSP\bsp_usart.c(238): warning:  #223-D: function "k210_data_analysis" declared implicitly
+  		U6GetOneByte(U6RxDataTmp[U6RxoutCnt++]);
+..\BSP\bsp_usart.c(248): error:  #20: identifier "USART6" is undefined
+      if (USART6->SR & USART_SR_ORE) //ORE中断
+..\BSP\bsp_usart.c(253): error:  #20: identifier "USART6" is undefined
+      if (USART_GetITStatus(USART6, USART_IT_RXNE))
+..\BSP\bsp_usart.c(260): error:  #20: identifier "USART6" is undefined
+      if (USART_GetITStatus(USART6, USART_IT_TXE))
+..\BSP\bsp_usart.c(412): warning:  #223-D: function "RCC_AHB1PeriphClockCmd" declared implicitly
+      RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOB, ENABLE);
+..\BSP\bsp_usart.c(412): error:  #20: identifier "RCC_AHB1Periph_GPIOB" is undefined
+      RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOB, ENABLE);
+..\BSP\bsp_usart.c(421): warning:  #223-D: function "GPIO_PinAFConfig" declared implicitly
+      GPIO_PinAFConfig(GPIOB, GPIO_PinSource10, GPIO_AF_USART3);
+..\BSP\bsp_usart.c(421): error:  #20: identifier "GPIO_AF_USART3" is undefined
+      GPIO_PinAFConfig(GPIOB, GPIO_PinSource10, GPIO_AF_USART3);
+..\BSP\bsp_usart.c(426): error:  #20: identifier "GPIO_Mode_AF" is undefined
+      GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AF;
+..\BSP\bsp_usart.c(428): error:  #136: struct "<unnamed>"  has no field "GPIO_OType"
+      GPIO_InitStructure.GPIO_OType = GPIO_OType_PP;
+..\BSP\bsp_usart.c(428): error:  #20: identifier "GPIO_OType_PP" is undefined
+      GPIO_InitStructure.GPIO_OType = GPIO_OType_PP;
+..\BSP\bsp_usart.c(429): error:  #136: struct "<unnamed>"  has no field "GPIO_PuPd"
+      GPIO_InitStructure.GPIO_PuPd = GPIO_PuPd_UP;
+..\BSP\bsp_usart.c(429): error:  #20: identifier "GPIO_PuPd_UP" is undefined
+      GPIO_InitStructure.GPIO_PuPd = GPIO_PuPd_UP;
+..\BSP\bsp_usart.c(435): error:  #136: struct "<unnamed>"  has no field "GPIO_OType"
+      GPIO_InitStructure.GPIO_OType = GPIO_OType_OD;
+..\BSP\bsp_usart.c(435): error:  #20: identifier "GPIO_OType_OD" is undefined
+      GPIO_InitStructure.GPIO_OType = GPIO_OType_OD;
+..\BSP\bsp_usart.c(436): error:  #136: struct "<unnamed>"  has no field "GPIO_PuPd"
+      GPIO_InitStructure.GPIO_PuPd = GPIO_PuPd_NOPULL;
+..\BSP\bsp_usart.c(436): error:  #20: identifier "GPIO_PuPd_NOPULL" is undefined
+      GPIO_InitStructure.GPIO_PuPd = GPIO_PuPd_NOPULL;
+..\BSP\bsp_usart.c: 5 warnings, 29 errors
+compiling bsp_mpu6050.c...
+compiling FIR_lib.c...
+compiling math_lib.c...
+compiling bsp_systick.c...
+compiling bsp_uc_debug.c...
+compiling inv_mpu.c...
+compiling core_run.c...
+..\Application\core_run.c(15): error:  #20: identifier "TIM7_IRQn" is undefined
+  	NVIC_InitStructure.NVIC_IRQChannel = TIM7_IRQn;
+..\Application\core_run.c: 0 warnings, 1 error
+compiling main.c...
+compiling Scheduler.c...
+..\Application\Scheduler.c(6): warning:  #223-D: function "key_dispose" declared implicitly
+  		key_dispose();
+..\Application\Scheduler.c(22): warning:  #223-D: function "display" declared implicitly
+  	display();  //显示信息
+..\Application\Scheduler.c: 2 warnings, 0 errors
+compiling inv_mpu_dmp_motion_driver.c...
+compiling sys.c...
+compiling stm32f10x_it.c...
+compiling Task.c...
+".\Objects\MIni_Quadcopter.axf" - 118 Error(s), 20 Warning(s).
+
+<h2>Software Packages used:</h2>
+
+Package Vendor: Keil
+                http://www.keil.com/pack/Keil.STM32F1xx_DFP.2.3.0.pack
+                Keil.STM32F1xx_DFP.2.3.0
+                STMicroelectronics STM32F1 Series Device Support, Drivers and Examples
+
+<h2>Collection of Component include folders:</h2>
+  .\RTE\_Target_1
+  C:\Program Files (x86)\keil_5\Arm\Packs\Keil\STM32F1xx_DFP\2.3.0\Device\Include
+
+<h2>Collection of Component Files used:</h2>
+Target not created.
+Build Time Elapsed:  00:00:04
+</pre>
+</body>
+</html>
