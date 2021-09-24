@@ -8,21 +8,14 @@ static u8 buff_temp[RX_BUFFER_SIZE];
 static void GPIO_Config(void)
 {
 	GPIO_InitTypeDef GPIO_InitStruct;
-	RCC_AHB1PeriphClockCmd(USARTx_TX_CLK|USARTx_RX_CLK,ENABLE);
-	GPIO_InitStruct.GPIO_Mode = GPIO_Mode_AF;
-	GPIO_InitStruct.GPIO_OType = GPIO_OType_OD;
-	GPIO_InitStruct.GPIO_Speed = GPIO_Speed_50MHz;
-	GPIO_InitStruct.GPIO_PuPd = GPIO_PuPd_NOPULL;
+	RCC_APB2PeriphClockCmd(USARTx_TX_CLK|USARTx_RX_CLK,ENABLE);
+	GPIO_InitStruct.GPIO_Mode = GPIO_Mode_IN_FLOATING;
 	GPIO_InitStruct.GPIO_Pin = USARTx_RX_PIN;
 	GPIO_Init(USARTx_RX_PORT,&GPIO_InitStruct);
-	GPIO_InitStruct.GPIO_Mode = GPIO_Mode_AF;
+	GPIO_InitStruct.GPIO_Mode = GPIO_Mode_AF_PP;
 	GPIO_InitStruct.GPIO_Pin = USARTx_TX_PIN;
-	GPIO_InitStruct.GPIO_OType = GPIO_OType_PP;
-	GPIO_InitStruct.GPIO_PuPd = GPIO_PuPd_UP;
 	GPIO_InitStruct.GPIO_Speed = GPIO_Speed_50MHz;
 	GPIO_Init(USARTx_TX_PORT,&GPIO_InitStruct);
-	GPIO_PinAFConfig(GPIOA, GPIO_PinSource9, GPIO_AF_USART1);
-  GPIO_PinAFConfig(GPIOA, GPIO_PinSource10, GPIO_AF_USART1);
 }
 
 
@@ -48,31 +41,25 @@ BlueTooth Debug;
 static void USART_DMA_Config(void)
 {
 	DMA_InitTypeDef DMA_InitStruct;
-	RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_DMA2,ENABLE);
+	RCC_AHBPeriphClockCmd(RCC_AHBPeriph_DMA1,ENABLE);
 	DMA_InitStruct.DMA_BufferSize = RX_BUFFER_SIZE;
-	DMA_InitStruct.DMA_DIR = DMA_DIR_PeripheralToMemory;
-	
-	DMA_InitStruct.DMA_Channel = DMA_Channel_4;
-	DMA_InitStruct.DMA_FIFOMode = DMA_FIFOMode_Disable;
-	DMA_InitStruct.DMA_FIFOThreshold = DMA_FIFOThreshold_Full;
-	DMA_InitStruct.DMA_Memory0BaseAddr = (uint32_t)(Debug.rx_buffer);
-	DMA_InitStruct.DMA_MemoryBurst = DMA_MemoryBurst_Single;
-	DMA_InitStruct.DMA_PeripheralBurst = DMA_PeripheralBurst_Single;
-
+	DMA_InitStruct.DMA_DIR = DMA_DIR_PeripheralSRC;
+	DMA_InitStruct.DMA_M2M = DMA_M2M_Disable;
+	DMA_InitStruct.DMA_MemoryBaseAddr = (uint32_t)(Debug.rx_buffer);
 	DMA_InitStruct.DMA_MemoryDataSize = DMA_MemoryDataSize_Byte;
 	DMA_InitStruct.DMA_MemoryInc = DMA_MemoryInc_Enable;
 	DMA_InitStruct.DMA_Mode = DMA_Mode_Circular;
 	DMA_InitStruct.DMA_PeripheralBaseAddr = (uint32_t)&(USARTx->DR);
 	DMA_InitStruct.DMA_PeripheralDataSize = DMA_PeripheralDataSize_Byte;
 	DMA_InitStruct.DMA_PeripheralInc = DMA_PeripheralInc_Disable;
-	DMA_InitStruct.DMA_Priority = DMA_Priority_Medium;
-	DMA_Init(DMA2_Stream5,&DMA_InitStruct);
+	DMA_InitStruct.DMA_Priority = DMA_Priority_High;
+	DMA_Init(DMA1_Channel5,&DMA_InitStruct);
 	DMA_InitStruct.DMA_BufferSize = TX_BUFFER_SIZE;
-	DMA_InitStruct.DMA_DIR = DMA_DIR_MemoryToPeripheral;
-	DMA_InitStruct.DMA_Memory0BaseAddr = (uint32_t)&(Debug.head);
-	DMA_Init(DMA2_Stream7,&DMA_InitStruct);
-	DMA_Cmd(DMA2_Stream7,ENABLE);
-	DMA_Cmd(DMA2_Stream5,ENABLE);
+	DMA_InitStruct.DMA_DIR = DMA_DIR_PeripheralDST;
+	DMA_InitStruct.DMA_MemoryBaseAddr = (uint32_t)&(Debug.head);
+	DMA_Init(DMA1_Channel4,&DMA_InitStruct);
+	DMA_Cmd(DMA1_Channel5,ENABLE);
+	DMA_Cmd(DMA1_Channel4,ENABLE);
 }
 
 void BlueTooth_Init(void)
@@ -148,10 +135,10 @@ uint8_t BlueTooth_Write_data(BlueTooth* Debug)				//添加数据需改
 //			Debug->pwm2[3] = buff_temp[(start + _cnt++) % RX_BUFFER_SIZE];
 				
 		
-//			Debug->s1[0] = buff_temp[(start + _cnt++) % RX_BUFFER_SIZE];
-//			Debug->s1[1] = buff_temp[(start + _cnt++) % RX_BUFFER_SIZE];
-//			Debug->s1[2] = buff_temp[(start + _cnt++) % RX_BUFFER_SIZE];
-//			Debug->s1[3] = buff_temp[(start + _cnt++) % RX_BUFFER_SIZE];
+			Debug->s1[0] = buff_temp[(start + _cnt++) % RX_BUFFER_SIZE];
+			Debug->s1[1] = buff_temp[(start + _cnt++) % RX_BUFFER_SIZE];
+			Debug->s1[2] = buff_temp[(start + _cnt++) % RX_BUFFER_SIZE];
+			Debug->s1[3] = buff_temp[(start + _cnt++) % RX_BUFFER_SIZE];
 //			Debug->s2[0] = buff_temp[(start + _cnt++) % RX_BUFFER_SIZE];
 //			Debug->s2[1] = buff_temp[(start + _cnt++) % RX_BUFFER_SIZE];
 //			Debug->s2[2] = buff_temp[(start + _cnt++) % RX_BUFFER_SIZE];
@@ -166,30 +153,30 @@ uint8_t BlueTooth_Write_data(BlueTooth* Debug)				//添加数据需改
 //			Debug->s4[3] = buff_temp[(start + _cnt++) % RX_BUFFER_SIZE];
 
 		
-		Debug->P1[0] = buff_temp[(start + _cnt++) % RX_BUFFER_SIZE];
-		Debug->P1[1] = buff_temp[(start + _cnt++) % RX_BUFFER_SIZE];
-		Debug->P1[2] = buff_temp[(start + _cnt++) % RX_BUFFER_SIZE];
-		Debug->P1[3] = buff_temp[(start + _cnt++) % RX_BUFFER_SIZE];
-		Debug->I1[0] = buff_temp[(start + _cnt++) % RX_BUFFER_SIZE];
-		Debug->I1[1] = buff_temp[(start + _cnt++) % RX_BUFFER_SIZE];
-		Debug->I1[2] = buff_temp[(start + _cnt++) % RX_BUFFER_SIZE];
-		Debug->I1[3] = buff_temp[(start + _cnt++) % RX_BUFFER_SIZE];
-		Debug->D1[0] = buff_temp[(start + _cnt++) % RX_BUFFER_SIZE];
-		Debug->D1[1] = buff_temp[(start + _cnt++) % RX_BUFFER_SIZE];
-		Debug->D1[2] = buff_temp[(start + _cnt++) % RX_BUFFER_SIZE];
-		Debug->D1[3] = buff_temp[(start + _cnt++) % RX_BUFFER_SIZE];
-		Debug->P2[0] = buff_temp[(start + _cnt++) % RX_BUFFER_SIZE];
-		Debug->P2[1] = buff_temp[(start + _cnt++) % RX_BUFFER_SIZE];
-		Debug->P2[2] = buff_temp[(start + _cnt++) % RX_BUFFER_SIZE];
-		Debug->P2[3] = buff_temp[(start + _cnt++) % RX_BUFFER_SIZE];
-		Debug->I2[0] = buff_temp[(start + _cnt++) % RX_BUFFER_SIZE];
-		Debug->I2[1] = buff_temp[(start + _cnt++) % RX_BUFFER_SIZE];
-		Debug->I2[2] = buff_temp[(start + _cnt++) % RX_BUFFER_SIZE];
-		Debug->I2[3] = buff_temp[(start + _cnt++) % RX_BUFFER_SIZE];
-		Debug->D2[0] = buff_temp[(start + _cnt++) % RX_BUFFER_SIZE];
-		Debug->D2[1] = buff_temp[(start + _cnt++) % RX_BUFFER_SIZE];
-		Debug->D2[2] = buff_temp[(start + _cnt++) % RX_BUFFER_SIZE];
-		Debug->D2[3] = buff_temp[(start + _cnt++) % RX_BUFFER_SIZE];
+//		Debug->P1[0] = buff_temp[(start + _cnt++) % RX_BUFFER_SIZE];
+//		Debug->P1[1] = buff_temp[(start + _cnt++) % RX_BUFFER_SIZE];
+//		Debug->P1[2] = buff_temp[(start + _cnt++) % RX_BUFFER_SIZE];
+//		Debug->P1[3] = buff_temp[(start + _cnt++) % RX_BUFFER_SIZE];
+//		Debug->I1[0] = buff_temp[(start + _cnt++) % RX_BUFFER_SIZE];
+//		Debug->I1[1] = buff_temp[(start + _cnt++) % RX_BUFFER_SIZE];
+//		Debug->I1[2] = buff_temp[(start + _cnt++) % RX_BUFFER_SIZE];
+//		Debug->I1[3] = buff_temp[(start + _cnt++) % RX_BUFFER_SIZE];
+//		Debug->D1[0] = buff_temp[(start + _cnt++) % RX_BUFFER_SIZE];
+//		Debug->D1[1] = buff_temp[(start + _cnt++) % RX_BUFFER_SIZE];
+//		Debug->D1[2] = buff_temp[(start + _cnt++) % RX_BUFFER_SIZE];
+//		Debug->D1[3] = buff_temp[(start + _cnt++) % RX_BUFFER_SIZE];
+//		Debug->P2[0] = buff_temp[(start + _cnt++) % RX_BUFFER_SIZE];
+//		Debug->P2[1] = buff_temp[(start + _cnt++) % RX_BUFFER_SIZE];
+//		Debug->P2[2] = buff_temp[(start + _cnt++) % RX_BUFFER_SIZE];
+//		Debug->P2[3] = buff_temp[(start + _cnt++) % RX_BUFFER_SIZE];
+//		Debug->I2[0] = buff_temp[(start + _cnt++) % RX_BUFFER_SIZE];
+//		Debug->I2[1] = buff_temp[(start + _cnt++) % RX_BUFFER_SIZE];
+//		Debug->I2[2] = buff_temp[(start + _cnt++) % RX_BUFFER_SIZE];
+//		Debug->I2[3] = buff_temp[(start + _cnt++) % RX_BUFFER_SIZE];
+//		Debug->D2[0] = buff_temp[(start + _cnt++) % RX_BUFFER_SIZE];
+//		Debug->D2[1] = buff_temp[(start + _cnt++) % RX_BUFFER_SIZE];
+//		Debug->D2[2] = buff_temp[(start + _cnt++) % RX_BUFFER_SIZE];
+//		Debug->D2[3] = buff_temp[(start + _cnt++) % RX_BUFFER_SIZE];
 //		
 //				Debug->x[0] = buff_temp[(start + _cnt++) % RX_BUFFER_SIZE];
 //				Debug->x[1] = buff_temp[(start + _cnt++) % RX_BUFFER_SIZE];

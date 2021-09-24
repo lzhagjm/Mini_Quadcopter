@@ -33,6 +33,7 @@
 .\objects\math_lib.o: ..\BSP\bsp_bluetooth.h
 .\objects\math_lib.o: ..\BSP\bsp_uc_debug.h
 .\objects\math_lib.o: ..\BSP\bsp_hollow_cup.h
+.\objects\math_lib.o: ..\BSP\bsp_HMC5883L.h
 .\objects\math_lib.o: ..\ALG_Lib\math_lib.h
 .\objects\math_lib.o: ..\ALG_Lib\FIR_lib.h
 .\objects\math_lib.o: ..\ALG_Lib\pid_lib.h

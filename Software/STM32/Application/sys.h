@@ -12,26 +12,12 @@
 																				
 #define NVIC_GROUP NVIC_PriorityGroup_3 //中断分组选择  NVIC_PriorityGroup_3  | 0-7  |   0-1  |
 
-#define NVIC_TIM5_P 0 //TIM5中断配置   步进电机
-#define NVIC_TIM5_S 0
 
-//#define NVIC_systick_P 0  //滴答定时器
-//#define NVIC_systick_S 0
-
-#define NVIC_UART6_P  6    //k210数据
-#define NVIC_UART6_S  0
-
-#define NVIC_TIM7_P 0 //TIM7中断配置   核心定时器
-#define NVIC_TIM7_S 0
-
-#define NVIC_UART3_P 1 //串口3中断配置   //上位机
-#define NVIC_UART3_S 0
-
-#define NVIC_EXTI2_P 6 //EXTI2中断     //超声波
-#define NVIC_EXTI2_S 0
-
-#define NVIC_TIM4_P 6 //TIM4中断配置   编码器2
+#define NVIC_TIM4_P 0 //TIM7中断配置   核心定时器
 #define NVIC_TIM4_S 0
+
+#define NVIC_UART1_P 1 //串口3中断配置   //上位机
+#define NVIC_UART1_S 0
 
 #define NVIC_TIM2_P 6 //TIM2中断配置   编码器1
 #define NVIC_TIM2_S 1
@@ -41,6 +27,9 @@
 
 //核心运行周期
 #define CYCLE   10  //MS   max = 65.536ms   min = 0.001ms
+
+#define I2C_CHOOSE    0     //1:硬件i2c  0:软件i2c
+
 
 /*           系统驱动               */
 #include "Scheduler.h" 
@@ -58,7 +47,7 @@
 #include "bsp_bluetooth.h"
 #include "bsp_uc_debug.h"	
 #include "bsp_hollow_cup.h"
-
+#include "bsp_HMC5883L.h"
 
 /*              算法库               */
 #include "math_lib.h"
@@ -91,25 +80,25 @@
 #define MEM_ADDR(addr)  *((volatile unsigned long  *)(addr)) 
 #define BIT_ADDR(addr, bitnum)   MEM_ADDR(BITBAND(addr, bitnum)) 
 //IO口地址映射
-#define GPIOA_ODR_Addr    (GPIOA_BASE+20) //0x40020014
-#define GPIOB_ODR_Addr    (GPIOB_BASE+20) //0x40020414 
-#define GPIOC_ODR_Addr    (GPIOC_BASE+20) //0x40020814 
-#define GPIOD_ODR_Addr    (GPIOD_BASE+20) //0x40020C14 
-#define GPIOE_ODR_Addr    (GPIOE_BASE+20) //0x40021014 
-#define GPIOF_ODR_Addr    (GPIOF_BASE+20) //0x40021414    
-#define GPIOG_ODR_Addr    (GPIOG_BASE+20) //0x40021814   
-#define GPIOH_ODR_Addr    (GPIOH_BASE+20) //0x40021C14    
-#define GPIOI_ODR_Addr    (GPIOI_BASE+20) //0x40022014     
+#define GPIOA_ODR_Addr    (GPIOA_BASE+0x0C) //0x40020014
+#define GPIOB_ODR_Addr    (GPIOB_BASE+0x0C) //0x40020414 
+#define GPIOC_ODR_Addr    (GPIOC_BASE+0x0C) //0x40020814 
+#define GPIOD_ODR_Addr    (GPIOD_BASE+0x0C) //0x40020C14 
+#define GPIOE_ODR_Addr    (GPIOE_BASE+0x0C) //0x40021014 
+#define GPIOF_ODR_Addr    (GPIOF_BASE+0x0C) //0x40021414    
+#define GPIOG_ODR_Addr    (GPIOG_BASE+0x0C) //0x40021814   
+#define GPIOH_ODR_Addr    (GPIOH_BASE+0x0C) //0x40021C14    
+#define GPIOI_ODR_Addr    (GPIOI_BASE+0x0C) //0x40022014     
 
-#define GPIOA_IDR_Addr    (GPIOA_BASE+16) //0x40020010 
-#define GPIOB_IDR_Addr    (GPIOB_BASE+16) //0x40020410 
-#define GPIOC_IDR_Addr    (GPIOC_BASE+16) //0x40020810 
-#define GPIOD_IDR_Addr    (GPIOD_BASE+16) //0x40020C10 
-#define GPIOE_IDR_Addr    (GPIOE_BASE+16) //0x40021010 
-#define GPIOF_IDR_Addr    (GPIOF_BASE+16) //0x40021410 
-#define GPIOG_IDR_Addr    (GPIOG_BASE+16) //0x40021810 
-#define GPIOH_IDR_Addr    (GPIOH_BASE+16) //0x40021C10 
-#define GPIOI_IDR_Addr    (GPIOI_BASE+16) //0x40022010 
+#define GPIOA_IDR_Addr    (GPIOA_BASE+0x08) //0x40020010 
+#define GPIOB_IDR_Addr    (GPIOB_BASE+0x08) //0x40020410 
+#define GPIOC_IDR_Addr    (GPIOC_BASE+0x08) //0x40020810 
+#define GPIOD_IDR_Addr    (GPIOD_BASE+0x08) //0x40020C10 
+#define GPIOE_IDR_Addr    (GPIOE_BASE+0x08) //0x40021010 
+#define GPIOF_IDR_Addr    (GPIOF_BASE+0x08) //0x40021410 
+#define GPIOG_IDR_Addr    (GPIOG_BASE+0x08) //0x40021810 
+#define GPIOH_IDR_Addr    (GPIOH_BASE+0x08) //0x40021C10 
+#define GPIOI_IDR_Addr    (GPIOI_BASE+0x08) //0x40022010 
  
 //IO口操作,只对单一的IO口!
 //确保n的值小于16!

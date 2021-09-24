@@ -4,17 +4,19 @@ void led_init(void)
 {    	 
   GPIO_InitTypeDef  GPIO_InitStructure;
 
-  RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOF, ENABLE);//使能GPIOF时钟
-
+  RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOB|RCC_APB2Periph_GPIOA|RCC_APB2Periph_AFIO, ENABLE);//使能GPIOF时钟
+	GPIO_PinRemapConfig(GPIO_Remap_SWJ_JTAGDisable, ENABLE);
   //GPIOF9,F10初始化设置
-  GPIO_InitStructure.GPIO_Pin = GPIO_Pin_9 | GPIO_Pin_10;
-  GPIO_InitStructure.GPIO_Mode = GPIO_Mode_OUT;//普通输出模式
-  GPIO_InitStructure.GPIO_OType = GPIO_OType_PP;//推挽输出
-  GPIO_InitStructure.GPIO_Speed = GPIO_Speed_100MHz;//100MHz
-  GPIO_InitStructure.GPIO_PuPd = GPIO_PuPd_UP;//上拉
-  GPIO_Init(GPIOF, &GPIO_InitStructure);//初始化
+  GPIO_InitStructure.GPIO_Pin = GPIO_Pin_3 | GPIO_Pin_4 ;
+  GPIO_InitStructure.GPIO_Mode = GPIO_Mode_Out_PP;//普通输出模式
+  GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;//100MHz
+  GPIO_Init(GPIOB, &GPIO_InitStructure);//初始化
+	
+	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_15 ;
+	GPIO_Init(GPIOA, &GPIO_InitStructure);
 	//关灯
-	GPIO_SetBits(GPIOF,GPIO_Pin_9 | GPIO_Pin_10);//GPIOF9,F10设置高，灯灭
-
+	LED1 = 1;
+	LED2 = 1;
+	LED_PWR = 1;
 }
 

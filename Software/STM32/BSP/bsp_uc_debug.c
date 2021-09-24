@@ -2,8 +2,8 @@
 
 static void call_back_send_char(u8 c)
 {   	
-	USART_SendData(USART3,c);  
-	while(USART_GetFlagStatus(USART3,USART_FLAG_TC)==RESET);
+	USART_SendData(USART1,c);  
+	while(USART_GetFlagStatus(USART1,USART_FLAG_TC)==RESET);
 } 
 
 
@@ -264,6 +264,27 @@ void Reported_MPU6050_data(float rol,float pit,float yaw)
 	buff[_cnt++] = BYTE1(yaw_temp);
 	buff[_cnt++] = 1;
 	Reported_data(0x03,_cnt,buff);
+}
+
+//上报 0x02  罗盘、气压、温度 传感器数据
+void Reported_HMC5883L_data(s16 x,s16 y,s16 z, s32 h , s16 T, u8 BAR_STA , u8 MAG_STA)
+{
+	u8 buff[18],_cnt = 0;
+	buff[_cnt++] = BYTE0(x);
+	buff[_cnt++] = BYTE1(x);
+	buff[_cnt++] = BYTE0(y);
+	buff[_cnt++] = BYTE1(y);
+	buff[_cnt++] = BYTE0(z);
+	buff[_cnt++] = BYTE1(z);
+	buff[_cnt++] = BYTE0(h);
+	buff[_cnt++] = BYTE1(h);
+	buff[_cnt++] = BYTE2(h);
+	buff[_cnt++] = BYTE3(h);
+	buff[_cnt++] = BYTE0(T);
+	buff[_cnt++] = BYTE1(T);
+	buff[_cnt++] = BAR_STA;
+	buff[_cnt++] = MAG_STA;
+	Reported_data(0x02,_cnt,buff);
 }
 
 //上报 1个 float 数据

@@ -1,25 +1,23 @@
 #include "bsp_usart.h"
 
-void NoUse(u8 data){}
+
 //串口接收解析函数
-#define U1GetOneByte	NoUse
-#define U2GetOneByte	NoUse
-#define U3GetOneByte	data_analysis
-#define U6GetOneByte	k210_data_analysis
+#define U1GetOneByte	data_analysis
+
 	
 #if USE_USART1
 //====uart1
 void usart1_init(u32 br_num)
 {
     USART_InitTypeDef USART_InitStructure;
-    USART_ClockInitTypeDef USART_ClockInitStruct;
+//    USART_ClockInitTypeDef USART_ClockInitStruct;
     NVIC_InitTypeDef NVIC_InitStructure;
     GPIO_InitTypeDef GPIO_InitStructure;
 
     USART_StructInit(&USART_InitStructure);
 
     RCC_APB2PeriphClockCmd(RCC_APB2Periph_USART1, ENABLE); //开启USART1时钟
-    RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOA, ENABLE);
+    RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOA|RCC_APB2Periph_AFIO, ENABLE);
 
     //串口中断优先级
     NVIC_InitStructure.NVIC_IRQChannel = USART1_IRQn;
@@ -28,22 +26,15 @@ void usart1_init(u32 br_num)
     NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;
     NVIC_Init(&NVIC_InitStructure);
 
-    GPIO_PinAFConfig(GPIOA, GPIO_PinSource9, GPIO_AF_USART1);
-    GPIO_PinAFConfig(GPIOA, GPIO_PinSource10, GPIO_AF_USART1);
 
     //配置PA9作为USART1　Tx
     GPIO_InitStructure.GPIO_Pin = GPIO_Pin_9;
-    GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AF;
+    GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AF_PP;
     GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
-    GPIO_InitStructure.GPIO_OType = GPIO_OType_PP;
-    GPIO_InitStructure.GPIO_PuPd = GPIO_PuPd_UP;
     GPIO_Init(GPIOA, &GPIO_InitStructure);
     //配置PA10作为USART1　Rx
     GPIO_InitStructure.GPIO_Pin = GPIO_Pin_10;
-    GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AF;
-    GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
-    GPIO_InitStructure.GPIO_OType = GPIO_OType_OD;
-    GPIO_InitStructure.GPIO_PuPd = GPIO_PuPd_NOPULL;
+    GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IN_FLOATING;
     GPIO_Init(GPIOA, &GPIO_InitStructure);
 
     USART_DeInit(USART1);
@@ -55,14 +46,14 @@ void usart1_init(u32 br_num)
     USART_InitStructure.USART_Parity = USART_Parity_No;                             //禁用奇偶校验
     USART_InitStructure.USART_HardwareFlowControl = USART_HardwareFlowControl_None; //硬件流控制失能
     USART_InitStructure.USART_Mode = USART_Mode_Tx | USART_Mode_Rx;                 //发送、接收使能
-    //配置USART1时钟
-   USART_ClockInitStruct.USART_Clock = USART_Clock_Disable;     //时钟低电平活动
-   USART_ClockInitStruct.USART_CPOL = USART_CPOL_Low;           //SLCK引脚上时钟输出的极性->低电平
-   USART_ClockInitStruct.USART_CPHA = USART_CPHA_2Edge;         //时钟第二个边沿进行数据捕获
-   USART_ClockInitStruct.USART_LastBit = USART_LastBit_Disable; //最后一位数据的时钟脉冲不从SCLK输出
+//    //配置USART1时钟
+//   USART_ClockInitStruct.USART_Clock = USART_Clock_Disable;     //时钟低电平活动
+//   USART_ClockInitStruct.USART_CPOL = USART_CPOL_Low;           //SLCK引脚上时钟输出的极性->低电平
+//   USART_ClockInitStruct.USART_CPHA = USART_CPHA_2Edge;         //时钟第二个边沿进行数据捕获
+//   USART_ClockInitStruct.USART_LastBit = USART_LastBit_Disable; //最后一位数据的时钟脉冲不从SCLK输出
 
     USART_Init(USART1, &USART_InitStructure);
-    USART_ClockInit(USART1, &USART_ClockInitStruct);
+//    USART_ClockInit(USART1, &USART_ClockInitStruct);
 		USART_Cmd(USART1, ENABLE);
     //使能USART1接收中断
 		USART_ClearFlag(USART1, USART_FLAG_TC);
@@ -122,8 +113,6 @@ void USART1_IRQHandler(void)
     {
         USART_ClearITPendingBit(USART1, USART_IT_RXNE); //清除中断标志
         com_data = USART1->DR;
-				USART_SendData(USART3, com_data);
-				while(USART_GetFlagStatus(USART3,USART_FLAG_TC)==RESET){};
         drvU1GetByte(com_data);
     }
     //发送（进入移位）中断
@@ -522,9 +511,9 @@ void USART3_IRQHandler(void)
 int fputc(int ch,FILE *f)
 {
 	//发送一个字节数据到串口
-	USART_SendData(USART3,(uint8_t) ch);
+	USART_SendData(USART1,(uint8_t) ch);
 	//等待发送完毕
-	while(USART_GetFlagStatus(USART3,USART_FLAG_TXE) == RESET);
+	while(USART_GetFlagStatus(USART1,USART_FLAG_TXE) == RESET);
 	return (ch);
 }
 
@@ -532,14 +521,14 @@ int fputc(int ch,FILE *f)
 int fgetc(FILE *f)
 {
 	//等待串口输入数据
-	while(USART_GetFlagStatus(USART3,USART_FLAG_RXNE) == RESET);
-	return (int)USART_ReceiveData(USART3);
+	while(USART_GetFlagStatus(USART1,USART_FLAG_RXNE) == RESET);
+	return (int)USART_ReceiveData(USART1);
 }
 
 
 void DrvUartDataCheck(void)
 {
-	//drvU1DataCheck();
+	drvU1DataCheck();
 	//drvU2DataCheck();
-	drvU3DataCheck();
+	//drvU3DataCheck();
 }

@@ -19,6 +19,7 @@
 ".\objects\bsp_systick.o"
 ".\objects\bsp_uc_debug.o"
 ".\objects\bsp_usart.o"
+".\objects\bsp_hmc5883l.o"
 ".\objects\fir_lib.o"
 ".\objects\math_lib.o"
 ".\objects\pid_lib.o"

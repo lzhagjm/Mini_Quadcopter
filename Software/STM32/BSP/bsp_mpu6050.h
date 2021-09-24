@@ -2,7 +2,7 @@
 #define _BSP_MPU6050_H_
 #include "sys.h"
 
-#define I2C_CHOOSE    0     //1:Ó²¼þi2c  0:Èí¼þi2c
+
 
 
 

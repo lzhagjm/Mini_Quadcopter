@@ -129,13 +129,12 @@ void S_I2C_Init(void)
 	//定义GPIO结构体
 	GPIO_InitTypeDef GPIO_InitSteruct;
 	//打开时钟
-	RCC_AHB1PeriphClockCmd(S_I2C_SCL_RCC_PORT|S_I2C_SDA_RCC_PORT,ENABLE);
+	RCC_APB2PeriphClockCmd(S_I2C_SCL_RCC_PORT|S_I2C_SDA_RCC_PORT,ENABLE);
 	//配置结构体
-	GPIO_InitSteruct.GPIO_Mode = GPIO_Mode_OUT;  //开漏输出
+	GPIO_InitSteruct.GPIO_Mode = GPIO_Mode_Out_OD;  //开漏输出
 	GPIO_InitSteruct.GPIO_Pin = S_I2C_SDA_Pin;
-	GPIO_InitSteruct.GPIO_Speed = GPIO_Fast_Speed;
-	GPIO_InitSteruct.GPIO_OType = GPIO_OType_OD;
-	GPIO_InitSteruct.GPIO_PuPd = GPIO_PuPd_NOPULL;
+	GPIO_InitSteruct.GPIO_Speed = GPIO_Speed_50MHz;
+
 	//启用结构体
 	GPIO_Init(S_I2C_SDA_PORT,&GPIO_InitSteruct);
 	GPIO_InitSteruct.GPIO_Pin = S_I2C_SCL_Pin;

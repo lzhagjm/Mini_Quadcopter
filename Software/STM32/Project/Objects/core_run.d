@@ -33,6 +33,7 @@
 .\objects\core_run.o: ..\BSP\bsp_bluetooth.h
 .\objects\core_run.o: ..\BSP\bsp_uc_debug.h
 .\objects\core_run.o: ..\BSP\bsp_hollow_cup.h
+.\objects\core_run.o: ..\BSP\bsp_HMC5883L.h
 .\objects\core_run.o: ..\ALG_Lib\math_lib.h
 .\objects\core_run.o: ..\ALG_Lib\FIR_lib.h
 .\objects\core_run.o: ..\ALG_Lib\pid_lib.h

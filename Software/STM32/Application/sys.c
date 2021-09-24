@@ -24,14 +24,19 @@ u8 All_Init(void)
 /****************∞≤–Ë—°‘Ò******************/
 
 	BlueTooth_Init();
-
+	//usart1_init(500000);
 	while( code1 || code2)
 	{
 		code1 = MPU_Init();
 		code2 = mpu_dmp_init();
+		
+		code1 ? (LED1 = 0) : (LED1 = 1);
+		code2 ? (LED2 = 0) : (LED2 = 1);
 	}
-
-	HOLLOW_CUP_Init(10000,1);  //8.4k
+	//hmc5883l_init();
+	LED1 = 1;
+	LED2 = 1;
+	TIMx_Config();
 
 	
 	

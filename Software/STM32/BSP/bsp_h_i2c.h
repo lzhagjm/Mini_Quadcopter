@@ -28,16 +28,15 @@
 /*Òý½Å¶¨Òå*/ 
 
 #define SENSORS_I2C_SCL_GPIO_PORT         GPIOB
-#define SENSORS_I2C_SCL_GPIO_CLK          RCC_AHB1Periph_GPIOB
-#define SENSORS_I2C_SCL_GPIO_PIN          GPIO_Pin_8
-#define SENSORS_I2C_SCL_GPIO_PINSOURCE    GPIO_PinSource8
+#define SENSORS_I2C_SCL_GPIO_CLK          RCC_APB2Periph_GPIOB
+#define SENSORS_I2C_SCL_GPIO_PIN          GPIO_Pin_6
+
  
 #define SENSORS_I2C_SDA_GPIO_PORT         GPIOB
-#define SENSORS_I2C_SDA_GPIO_CLK          RCC_AHB1Periph_GPIOB
-#define SENSORS_I2C_SDA_GPIO_PIN          GPIO_Pin_9
-#define SENSORS_I2C_SDA_GPIO_PINSOURCE    GPIO_PinSource9
+#define SENSORS_I2C_SDA_GPIO_CLK          RCC_APB2Periph_GPIOB
+#define SENSORS_I2C_SDA_GPIO_PIN          GPIO_Pin_7
 
-#define SENSORS_I2C_AF                    GPIO_AF_I2C1
+
 
 #define SENSORS_I2C              					 I2C1
 #define SENSORS_I2C_RCC_CLK               RCC_APB1Periph_I2C1

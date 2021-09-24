@@ -38,24 +38,23 @@ void I2cMaster_Init(void)
   RCC_APB1PeriphClockCmd(SENSORS_I2C_RCC_CLK, ENABLE);
 
   /* Enable I2C GPIO clock */
-  RCC_AHB1PeriphClockCmd(SENSORS_I2C_SCL_GPIO_CLK | SENSORS_I2C_SDA_GPIO_CLK, ENABLE);
+  RCC_APB2PeriphClockCmd(SENSORS_I2C_SCL_GPIO_CLK | SENSORS_I2C_SDA_GPIO_CLK, ENABLE);
 
   /* Configure I2Cx pin: SCL ----------------------------------------*/
   GPIO_InitStructure.GPIO_Pin =  SENSORS_I2C_SCL_GPIO_PIN; 
-  GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AF;
-  GPIO_InitStructure.GPIO_Speed = GPIO_Speed_100MHz;
-  GPIO_InitStructure.GPIO_OType = GPIO_OType_OD;
-  GPIO_InitStructure.GPIO_PuPd  = GPIO_PuPd_NOPULL;
+  GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AF_OD;
+  GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
+
 
   /* Connect pins to Periph */
-  GPIO_PinAFConfig(SENSORS_I2C_SCL_GPIO_PORT, SENSORS_I2C_SCL_GPIO_PINSOURCE, SENSORS_I2C_AF);  
+  
   GPIO_Init(SENSORS_I2C_SCL_GPIO_PORT, &GPIO_InitStructure);
 
   /* Configure I2Cx pin: SDA ----------------------------------------*/
   GPIO_InitStructure.GPIO_Pin = SENSORS_I2C_SDA_GPIO_PIN; 
 
   /* Connect pins to Periph */
-  GPIO_PinAFConfig(SENSORS_I2C_SDA_GPIO_PORT, SENSORS_I2C_SDA_GPIO_PINSOURCE, SENSORS_I2C_AF);  
+
   GPIO_Init(SENSORS_I2C_SDA_GPIO_PORT, &GPIO_InitStructure);  
   
   I2C_DeInit(SENSORS_I2C);

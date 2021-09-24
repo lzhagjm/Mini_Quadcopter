@@ -9,12 +9,12 @@ typedef enum{
 
 //软件IIC引脚定义
 //SCL    PB6
-#define S_I2C_SCL_RCC_PORT			RCC_AHB1Periph_GPIOB
+#define S_I2C_SCL_RCC_PORT			RCC_APB2Periph_GPIOB
 #define S_I2C_SCL_PORT					GPIOB
 #define S_I2C_SCL_Pin						GPIO_Pin_6
 
 //SDA    PB7
-#define S_I2C_SDA_RCC_PORT			RCC_AHB1Periph_GPIOB
+#define S_I2C_SDA_RCC_PORT			RCC_APB2Periph_GPIOB
 #define S_I2C_SDA_PORT					GPIOB
 #define S_I2C_SDA_Pin						GPIO_Pin_7
 

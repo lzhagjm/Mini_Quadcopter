@@ -8,14 +8,14 @@
 /* 串口相关 */
 #define USARTx						USART1
 #define USARTx_CLK				RCC_APB2Periph_USART1
-#define USARTx_TX_CLK    	RCC_AHB1Periph_GPIOA
+#define USARTx_TX_CLK    	RCC_APB2Periph_GPIOA
 #define USARTx_TX_PORT    GPIOA
 #define USARTx_TX_PIN			GPIO_Pin_9
-#define USARTx_RX_CLK			RCC_AHB1Periph_GPIOA
+#define USARTx_RX_CLK			RCC_APB2Periph_GPIOA
 #define USARTx_RX_PORT		GPIOA
 #define USARTx_RX_PIN			GPIO_Pin_10
 
-#define RX_BUFFER_SIZE				(3+32)    //添加数据需改
+#define RX_BUFFER_SIZE				(3+4)    //添加数据需改
 #define TX_BUFFER_SIZE				7     
 #define BUFFER_HEAD				0xA5
 #define BUFFER_END				0x5A
@@ -27,16 +27,16 @@ typedef struct{											//添加数据需改
 	uint8_t rx_buffer[RX_BUFFER_SIZE];
 
 
-	uint8_t P1[4];
-	uint8_t I1[4];
-	uint8_t D1[4];
-	uint8_t P2[4];
-	uint8_t I2[4];
-	uint8_t D2[4];
-	  u8 x[4];
-		u8 y[4];
+//	uint8_t P1[4];
+//	uint8_t I1[4];
+//	uint8_t D1[4];
+//	uint8_t P2[4];
+//	uint8_t I2[4];
+//	uint8_t D2[4];
+//	  u8 x[4];
+//		u8 y[4];
 	
-//		u8 s1[4];
+		u8 s1[4];
 //		u8 s2[4];
 //		u8 s3[4];
 //		u8 s4[4];

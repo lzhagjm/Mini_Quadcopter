@@ -3,7 +3,7 @@
 //调度函数
 static void Loop(void) //每次都执行
 {
-		key_dispose();
+
 }
 
 static void Loop_1000Hz(void) //1ms执行一次
@@ -19,11 +19,12 @@ static void Loop_500Hz(void) //2ms执行一次
 
 static void Loop_200Hz(void) //5ms执行一次
 {
-	display();  //显示信息
+
 }
 
 static void Loop_100Hz(void) //10ms执行一次
 {
+	//mpu6050_test();
 	
 
 }
@@ -36,7 +37,7 @@ static void Loop_50Hz(void) //20ms执行一次
 
 static void Loop_20Hz(void) //50ms执行一次
 {
-	
+
 
 }
 
@@ -57,12 +58,14 @@ static void Loop_5Hz(void) //200ms执行一次
 static void Loop_2Hz(void) //500ms执行一次
 {
 		LED1_T;
+		LED2_T;
+		display();
 }
 
 
 static void Loop_1Hz(void) //1s执行一次
 {
-			
+		LED_PWR_T;
 }
 
 

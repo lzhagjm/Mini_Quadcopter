@@ -1,187 +1,76 @@
 #include "bsp_hollow_cup.h"
 
-void HOLLOW_CUP_GPIO_Config(void)
+void TIMx_Config(void)
 {
-	/*定义一个GPIO_InitTypeDef类型的结构体*/
-	GPIO_InitTypeDef GPIO_InitStructure;
-	/*开启相关的GPIO外设时钟*/
-	RCC_AHB1PeriphClockCmd (CupGroup1_TIM_CH1_CLK, ENABLE);
-	RCC_AHB1PeriphClockCmd (CupGroup1_TIM_CH2_CLK, ENABLE);
-	RCC_AHB1PeriphClockCmd (CupGroup1_TIM_CH3_CLK, ENABLE);
-	RCC_AHB1PeriphClockCmd (CupGroup1_TIM_CH4_CLK, ENABLE);
-	RCC_AHB1PeriphClockCmd (CupGroup2_TIM_CH1_CLK, ENABLE);
-	RCC_AHB1PeriphClockCmd (CupGroup2_TIM_CH2_CLK, ENABLE);
-	RCC_AHB1PeriphClockCmd (CupGroup2_TIM_CH3_CLK, ENABLE);
-	RCC_AHB1PeriphClockCmd (CupGroup2_TIM_CH4_CLK, ENABLE);	
-  /* 定时器通道引脚复用 */
-	GPIO_PinAFConfig(CupGroup1_TIM_CH1_PORT,CupGroup1_TIM_CH1_PINSOURCE,CupGroup1_TIM_AF); 
-  GPIO_PinAFConfig(CupGroup1_TIM_CH2_PORT,CupGroup1_TIM_CH2_PINSOURCE,CupGroup1_TIM_AF);
-	GPIO_PinAFConfig(CupGroup1_TIM_CH3_PORT,CupGroup1_TIM_CH3_PINSOURCE,CupGroup1_TIM_AF);
-	GPIO_PinAFConfig(CupGroup1_TIM_CH4_PORT,CupGroup1_TIM_CH4_PINSOURCE,CupGroup1_TIM_AF);
-	GPIO_PinAFConfig(CupGroup2_TIM_CH1_PORT,CupGroup2_TIM_CH1_PINSOURCE,CupGroup2_TIM_AF);
-	GPIO_PinAFConfig(CupGroup2_TIM_CH2_PORT,CupGroup2_TIM_CH2_PINSOURCE,CupGroup2_TIM_AF);
-	GPIO_PinAFConfig(CupGroup2_TIM_CH3_PORT,CupGroup2_TIM_CH3_PINSOURCE,CupGroup2_TIM_AF);
-	GPIO_PinAFConfig(CupGroup2_TIM_CH4_PORT,CupGroup2_TIM_CH4_PINSOURCE,CupGroup2_TIM_AF);
-	/* 定时器通道引脚配置 */															   		
-	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AF;    
-	GPIO_InitStructure.GPIO_OType = GPIO_OType_PP;
-	GPIO_InitStructure.GPIO_PuPd = GPIO_PuPd_NOPULL;
-	GPIO_InitStructure.GPIO_Speed = GPIO_Speed_100MHz; 
+	GPIO_InitTypeDef GPIO_InitStruct;
+	//定义PWM模式结构体
+	TIM_OCInitTypeDef TIM_OCInitStruct;
+	RCC_APB2PeriphClockCmd(RCC_APB2Periph_AFIO|RCC_APB2Periph_GPIOA,ENABLE);
+	GPIO_InitStruct.GPIO_Mode = GPIO_Mode_AF_PP;
+	GPIO_InitStruct.GPIO_Pin = GPIO_Pin_0|GPIO_Pin_1|GPIO_Pin_2|GPIO_Pin_3;
+	GPIO_InitStruct.GPIO_Speed = GPIO_Speed_50MHz;
+	GPIO_Init(GPIOA,&GPIO_InitStruct);
 	
-	GPIO_InitStructure.GPIO_Pin = CupGroup1_TIM_CH1_PIN;
-	GPIO_Init(CupGroup1_TIM_CH1_PORT, &GPIO_InitStructure);
+	//启开定时器时钟
+	RCC_APB1PeriphClockCmd(RCC_APB1Periph_TIM2,ENABLE);
+	//定义模式配置结构体
+	TIM_TimeBaseInitTypeDef TIM_ModeStruct;
+	//设置模式
+	//选择预分频为1（72Mhz）
+	TIM_ModeStruct.TIM_ClockDivision = TIM_CKD_DIV1;
+	//设置向上计数模式
+	TIM_ModeStruct.TIM_CounterMode = TIM_CounterMode_Up;
+	//设置计数上限为0~4999 共计数5000次
+	TIM_ModeStruct.TIM_Period = 1000-1;
+	//设置频率 = TIMx_CLK/（TIM_Prescaler+1） = 10000Hz
+	//==>TIM_Prescaler = 7200-1
+	//每计数一次时间：t = 1/10000Hz = 100us
+	//计数5000次0.5s
+	TIM_ModeStruct.TIM_Prescaler = 72-1;
+	//初始化定时器
+	TIM_TimeBaseInit(TIM2, &TIM_ModeStruct);
+
+	TIM_OCInitStruct.TIM_OCMode = TIM_OCMode_PWM1;   //配置pwm模式1
+	TIM_OCInitStruct.TIM_OCPolarity = TIM_OCPolarity_High;
+	TIM_OCInitStruct.TIM_OutputState = TIM_OutputState_Enable;
+	TIM_OCInitStruct.TIM_Pulse = 0;
+	//启用结构体
+	TIM_OC1Init(TIM2, &TIM_OCInitStruct);
+	TIM_OC1PreloadConfig(TIM2, TIM_OCPreload_Enable);
 	
-	GPIO_InitStructure.GPIO_Pin = CupGroup1_TIM_CH2_PIN;
-	GPIO_Init(CupGroup1_TIM_CH2_PORT, &GPIO_InitStructure);
+	TIM_OCInitStruct.TIM_Pulse = 0;
+	//启用结构体
+	TIM_OC2Init(TIM2, &TIM_OCInitStruct);
+	TIM_OC2PreloadConfig(TIM2, TIM_OCPreload_Enable);
 	
-	GPIO_InitStructure.GPIO_Pin = CupGroup1_TIM_CH3_PIN;
-	GPIO_Init(CupGroup1_TIM_CH3_PORT, &GPIO_InitStructure);
+	TIM_OCInitStruct.TIM_Pulse = 0;
+	//启用结构体
+	TIM_OC3Init(TIM2, &TIM_OCInitStruct);
+	TIM_OC3PreloadConfig(TIM2, TIM_OCPreload_Enable);
+
+	TIM_OCInitStruct.TIM_Pulse = 0;
+	//启用结构体
+	TIM_OC4Init(TIM2, &TIM_OCInitStruct);
+	TIM_OC4PreloadConfig(TIM2, TIM_OCPreload_Enable);
 	
-	GPIO_InitStructure.GPIO_Pin = CupGroup1_TIM_CH4_PIN;
-	GPIO_Init(CupGroup1_TIM_CH4_PORT, &GPIO_InitStructure);
-	
-	GPIO_InitStructure.GPIO_Pin = CupGroup2_TIM_CH1_PIN;
-	GPIO_Init(CupGroup2_TIM_CH1_PORT, &GPIO_InitStructure);
-	
-	GPIO_InitStructure.GPIO_Pin = CupGroup2_TIM_CH2_PIN;
-	GPIO_Init(CupGroup2_TIM_CH2_PORT, &GPIO_InitStructure);
-	
-	GPIO_InitStructure.GPIO_Pin = CupGroup2_TIM_CH3_PIN;
-	GPIO_Init(CupGroup2_TIM_CH3_PORT, &GPIO_InitStructure);
-	
-	GPIO_InitStructure.GPIO_Pin = CupGroup2_TIM_CH4_PIN;
-	GPIO_Init(CupGroup2_TIM_CH4_PORT, &GPIO_InitStructure);
+	TIM_Cmd(TIM2,ENABLE);
 }
 
-void HOLLOW_CUP_TIM_Mode_Config(u32 arr, int psc)
+
+void SetSpeedHollowCup1(uint16_t speed)
 {
-	TIM_TimeBaseInitTypeDef  TIM_TimeBaseStructure;
-  TIM_OCInitTypeDef  				TIM_OCInitStructure;
-	/***********************组1定时器初始化***************************/
-	
-	// 开启TIMx_CLK,x[2,3,4,5,12,13,14] 
-  RCC_APB1PeriphClockCmd(CupGroup1_TIM_CLK, ENABLE); 
-  /* 累计 TIM_Period个后产生一个更新或者中断*/		
-  //当定时器从0计数到8399，即为8400次，为一个定时周期
-  TIM_TimeBaseStructure.TIM_Period = arr-1;       	
-	// 通用控制定时器时钟源TIMxCLK = HCLK/2=84MHz 
-	// 设定定时器频率为=TIMxCLK/(TIM_Prescaler+1)=100KHz
-  TIM_TimeBaseStructure.TIM_Prescaler = psc-1;	
-  // 采样时钟分频
-  TIM_TimeBaseStructure.TIM_ClockDivision=TIM_CKD_DIV1;
-  // 计数方式
-  TIM_TimeBaseStructure.TIM_CounterMode=TIM_CounterMode_Up;
-	// 初始化定时器TIMx, x[2,3,4,5,12,13,14] 
-	TIM_TimeBaseInit(CupGroup1_TIM, &TIM_TimeBaseStructure);
-	/*PWM模式配置*/
-	/* PWM1 Mode configuration: Channel1 */
-  TIM_OCInitStructure.TIM_OCMode = TIM_OCMode_PWM1;	    //配置为PWM模式1
-  TIM_OCInitStructure.TIM_OutputState = TIM_OutputState_Enable;	
-  TIM_OCInitStructure.TIM_Pulse = 0;
-  TIM_OCInitStructure.TIM_OCPolarity = TIM_OCPolarity_High;  	  //当定时器计数值小于CCR1_Val时为高电平
-  TIM_OC1Init(CupGroup1_TIM, &TIM_OCInitStructure);	 //使能通道1 
-	TIM_OC2Init(CupGroup1_TIM, &TIM_OCInitStructure);	 //使能通道1
-	TIM_OC3Init(CupGroup1_TIM, &TIM_OCInitStructure);	 //使能通道1
-	TIM_OC4Init(CupGroup1_TIM, &TIM_OCInitStructure);	 //使能通道1
-	/*使能通道1重载*/
-	TIM_OC1PreloadConfig(CupGroup1_TIM, TIM_OCPreload_Enable);
-	TIM_OC2PreloadConfig(CupGroup1_TIM, TIM_OCPreload_Enable);
-	TIM_OC3PreloadConfig(CupGroup1_TIM, TIM_OCPreload_Enable);
-	TIM_OC4PreloadConfig(CupGroup1_TIM, TIM_OCPreload_Enable);	
-	// 使能定时器
-	TIM_Cmd(CupGroup1_TIM, ENABLE);
-	
-	
-	/***********************组2定时器初始化***************************/
-	
-	// 开启TIMx_CLK,x[2,3,4,5,12,13,14] 
-  RCC_APB1PeriphClockCmd(CupGroup2_TIM_CLK, ENABLE); 
-  /* 累计 TIM_Period个后产生一个更新或者中断*/		
-  //当定时器从0计数到8399，即为8400次，为一个定时周期
-  TIM_TimeBaseStructure.TIM_Period = arr-1;       	
-	// 通用控制定时器时钟源TIMxCLK = HCLK/2=84MHz 
-	// 设定定时器频率为=TIMxCLK/(TIM_Prescaler+1)=100KHz
-  TIM_TimeBaseStructure.TIM_Prescaler = psc-1;	
-  // 采样时钟分频
-  TIM_TimeBaseStructure.TIM_ClockDivision=TIM_CKD_DIV1;
-  // 计数方式
-  TIM_TimeBaseStructure.TIM_CounterMode=TIM_CounterMode_Up;	
-	// 初始化定时器TIMx, x[2,3,4,5,12,13,14] 
-	TIM_TimeBaseInit(CupGroup2_TIM, &TIM_TimeBaseStructure);	
-	/*PWM模式配置*/
-	/* PWM1 Mode configuration: Channel1 */
-  TIM_OCInitStructure.TIM_OCMode = TIM_OCMode_PWM1;	    //配置为PWM模式1
-  TIM_OCInitStructure.TIM_OutputState = TIM_OutputState_Enable;	
-  TIM_OCInitStructure.TIM_Pulse = 0;
-  TIM_OCInitStructure.TIM_OCPolarity = TIM_OCPolarity_High;  	  //当定时器计数值小于CCR1_Val时为高电平
-  TIM_OC1Init(CupGroup2_TIM, &TIM_OCInitStructure);	 //使能通道1  
-	TIM_OC2Init(CupGroup2_TIM, &TIM_OCInitStructure);	 //使能通道1
-	TIM_OC3Init(CupGroup2_TIM, &TIM_OCInitStructure);	 //使能通道1
-	TIM_OC4Init(CupGroup2_TIM, &TIM_OCInitStructure);	 //使能通道1
-	/*使能通道1重载*/
-	TIM_OC1PreloadConfig(CupGroup2_TIM, TIM_OCPreload_Enable);
-	TIM_OC2PreloadConfig(CupGroup2_TIM, TIM_OCPreload_Enable);
-	TIM_OC3PreloadConfig(CupGroup2_TIM, TIM_OCPreload_Enable);
-	TIM_OC4PreloadConfig(CupGroup2_TIM, TIM_OCPreload_Enable);	
-	// 使能定时器
-	TIM_Cmd(CupGroup2_TIM, ENABLE);
+	TIM_SetCompare3(TIM2,speed);
+}
+void SetSpeedHollowCup2(uint16_t speed)
+{
+	TIM_SetCompare4(TIM2,speed);
+}
+void SetSpeedHollowCup3(uint16_t speed)
+{
+	TIM_SetCompare1(TIM2,speed);
+}
+void SetSpeedHollowCup4(uint16_t speed)
+{
+	TIM_SetCompare2(TIM2,speed);
 }
 
-void HOLLOW_CUP_Init(u32 arr, int psc)
-{
-	HOLLOW_CUP_GPIO_Config();
-	HOLLOW_CUP_TIM_Mode_Config(arr, psc);
-}
-
-void SetSpeedHollowCup1(int speed)
-{
-	if(speed>0)
-	{
-		TIM_SetCompare1(CupGroup1_TIM,speed);
-		TIM_SetCompare2(CupGroup1_TIM,0);
-	}
-	else
-	{
-		TIM_SetCompare1(CupGroup1_TIM,0);
-		TIM_SetCompare2(CupGroup1_TIM,-speed);
-	}
-}
-void SetSpeedHollowCup2(int speed)
-{
-	if(speed>0)
-	{
-		TIM_SetCompare3(CupGroup1_TIM,speed);
-		TIM_SetCompare4(CupGroup1_TIM,0);
-	}
-	else
-	{
-		TIM_SetCompare3(CupGroup1_TIM,0);
-		TIM_SetCompare4(CupGroup1_TIM,-speed);
-	}
-}
-void SetSpeedHollowCup3(int speed)
-{
-	if(speed>0)
-	{
-		TIM_SetCompare1(CupGroup2_TIM,speed);
-		TIM_SetCompare2(CupGroup2_TIM,0);
-	}
-	else
-	{
-		TIM_SetCompare1(CupGroup2_TIM,0);
-		TIM_SetCompare2(CupGroup2_TIM,-speed);
-	}
-}
-void SetSpeedHollowCup4(int speed)
-{
-	if(speed>0)
-	{
-		TIM_SetCompare3(CupGroup2_TIM,speed);
-		TIM_SetCompare4(CupGroup2_TIM,0);
-	}
-	else
-	{
-		TIM_SetCompare3(CupGroup2_TIM,0);
-		TIM_SetCompare4(CupGroup2_TIM,-speed);
-	}
-}

@@ -3,10 +3,10 @@
 #include "sys.h"
 
 
-#define USE_USART1  0
+#define USE_USART1  1
 #define USE_USART2  0
-#define USE_USART3  1
-#define USE_USART6  1
+#define USE_USART3  0
+#define USE_USART6  0
 
 #if USE_USART1
 void usart1_init(u32 br_num);
